@@ -1,22 +1,32 @@
-# Hardware info
+# Información del hardware
+
+Con el comando `cpufreq-info` obtenemos la información para la frecuencia de funcionamiento del procesador, y leyendo el fichero de información de la cpu con `cat /proc/cpuinfo` podemos averiguar el modelo del procesador y más detalles:
 
 - 4 Cores Intel Xeon X3320 
 	- Max: 2.5GHz
 	- Actual freq work: 2GHz
+
+Para ver la información sobre la memoria RAM podemos ejecutar `htop` donde se visualiza de forma gráfica el uso de memoria RAM y SWAP así como otros parámetros de funcionamiento del sistema:
+
 - RAM: 2010MB 
 - Swap Mem: 2055MB
 
-# OS info
+# Información del sistema operativo
+
+Para averiguar la distribución de linux instalada podemos ejecutar `cat /etc/*-release` y mostrará en este caso la versión de OpenSUSE, habrá abierto el fichero /etc/SuSE-release.
 
 - Distribution: OpenSUSE distribution v11.0 - x86-64
+
+Obtendremos la versión del kernel con el comando `uname -a`:
 - Linux kernel: 2.6.25.16-0.1-default 
 
-# Network
+# Información de red
 
-## 
-
-- ifconfig:
-	eth0      Link encap:Ethernet  HWaddr 00:15:17:27:C3:39  
+- Con el comando `/sbin/ifconfig` obtendremos la información de las interfaces de red, las de interés son:
+```BashScript
+~> /sbin/ifconfig
+	...
+	eth0      Link encap:Ethernet  HWaddr 00:15:17:27:C3:39 
 		  inet addr:158.42.181.219  Bcast:158.42.181.255  Mask:255.255.254.0
 		  inet6 addr: fe80::215:17ff:fe27:c339/64 Scope:Link
 		  UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
@@ -34,8 +44,11 @@
 		  TX packets:726020 errors:0 dropped:0 overruns:0 carrier:0
 		  collisions:0 txqueuelen:100 
 		  RX bytes:529057896 (504.5 Mb)  TX bytes:54621472 (52.0 Mb)
+```
 
-- route:
+- 
+```
+route
 	Kernel IP routing table
 	Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 	192.168.1.0     *               255.255.255.0   U     0      0        0 eth1
@@ -43,6 +56,7 @@
 	link-local      *               255.255.0.0     U     0      0        0 eth0
 	loopback        *               255.0.0.0       U     0      0        0 lo
 	default         rou-labdisca.ne 0.0.0.0         UG    0      0        0 eth0
+```
 
 - host www.upv.es
 	www.upv.es is an alias for ias.cc.upv.es.
