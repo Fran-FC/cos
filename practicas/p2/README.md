@@ -63,30 +63,30 @@ Podemos observar que la interfaz eth0 se comunica con la red externa de la UPV, 
 - Para mostrar la tabla ARP con la conversión de MAC a IP ejecutamos `/sbin/arp`. Si quisieramos mostrar las IP numéricas en lugar de los nombres simbólicos utilizamos la opción `-n`:
 ```
 ~> /sbin/arp -n
-	Address                  HWtype  HWaddress           Flags Mask            Iface
-	158.42.181.15            ether   F0:79:59:64:55:DA   C                     eth0
-	158.42.181.11            ether   08:62:66:48:E1:9B   C                     eth0
-	192.168.1.105            ether   00:15:17:27:C3:8E   C                     eth1
-	192.168.1.254            ether   00:C0:B7:CF:8F:87   C                     eth1
-	158.42.181.17            ether   F0:79:59:64:55:F8   C                     eth0
-	192.168.1.106            ether   00:15:17:27:B2:13   C                     eth1
-	158.42.181.250           ether   2C:FA:A2:2D:10:95   C                     eth0
-	192.168.1.100            ether   00:14:FD:13:01:7E   C                     eth1
-	192.168.1.102            ether   00:15:17:27:C3:AC   C                     eth1
-	158.42.181.6             ether   08:62:66:48:DE:B2   C                     eth0
-	158.42.181.9             ether   08:62:66:48:E0:DD   C                     eth0
-	192.168.1.107            ether   00:15:17:27:BF:86   C                     eth1
-	158.42.181.10            ether   08:62:66:48:E1:66   C                     eth0
-	158.42.181.14            ether   F0:79:59:64:55:DD   C                     eth0
-	158.42.181.8             ether   F0:79:59:64:56:23   C                     eth0
-	192.168.1.108            ether   00:15:17:27:BF:C8   C                     eth1
-	158.42.181.5             ether   08:62:66:48:E4:CB   C                     eth0
-	192.168.1.104            ether   00:15:17:27:C8:1D   C                     eth1
-	158.42.181.3             ether   08:62:66:48:DF:6D   C                     eth0
-	192.168.1.103            ether   00:15:17:27:C3:58   C                     eth1
-	158.42.181.19            ether   08:62:66:48:E0:C9   C                     eth0
-	158.42.181.29            ether   08:62:66:48:DB:20   C                     eth0
-	158.42.181.16            ether   08:62:66:48:E1:9E   C                     eth0
+Address                  HWtype  HWaddress           Flags Mask            Iface
+158.42.181.15            ether   F0:79:59:64:55:DA   C                     eth0
+158.42.181.11            ether   08:62:66:48:E1:9B   C                     eth0
+192.168.1.105            ether   00:15:17:27:C3:8E   C                     eth1
+192.168.1.254            ether   00:C0:B7:CF:8F:87   C                     eth1
+158.42.181.17            ether   F0:79:59:64:55:F8   C                     eth0
+192.168.1.106            ether   00:15:17:27:B2:13   C                     eth1
+158.42.181.250           ether   2C:FA:A2:2D:10:95   C                     eth0
+192.168.1.100            ether   00:14:FD:13:01:7E   C                     eth1
+192.168.1.102            ether   00:15:17:27:C3:AC   C                     eth1
+158.42.181.6             ether   08:62:66:48:DE:B2   C                     eth0
+158.42.181.9             ether   08:62:66:48:E0:DD   C                     eth0
+192.168.1.107            ether   00:15:17:27:BF:86   C                     eth1
+158.42.181.10            ether   08:62:66:48:E1:66   C                     eth0
+158.42.181.14            ether   F0:79:59:64:55:DD   C                     eth0
+158.42.181.8             ether   F0:79:59:64:56:23   C                     eth0
+192.168.1.108            ether   00:15:17:27:BF:C8   C                     eth1
+158.42.181.5             ether   08:62:66:48:E4:CB   C                     eth0
+192.168.1.104            ether   00:15:17:27:C8:1D   C                     eth1
+158.42.181.3             ether   08:62:66:48:DF:6D   C                     eth0
+192.168.1.103            ether   00:15:17:27:C3:58   C                     eth1
+158.42.181.19            ether   08:62:66:48:E0:C9   C                     eth0
+158.42.181.29            ether   08:62:66:48:DB:20   C                     eth0
+158.42.181.16            ether   08:62:66:48:E1:9E   C                     eth0
 ```
 
 # DNS
@@ -95,9 +95,9 @@ A continuación se ejecutan una serie de comandos para las consultas a DNS.
 
 ```
 ~> host www.upv.es
-	www.upv.es is an alias for ias.cc.upv.es.
-	ias.cc.upv.es has address 158.42.4.23
-	ias.cc.upv.es mail is handled by 7 mxv.cc.upv.es.
+www.upv.es is an alias for ias.cc.upv.es.
+ias.cc.upv.es has address 158.42.4.23
+ias.cc.upv.es mail is handled by 7 mxv.cc.upv.es.
 ```
 
 - host 158.42.4.23

@@ -35,16 +35,21 @@ function conmutaFromTo {
         echo "antes se debe de especificar accion de apagar o encender"
         usage
     else
+        if [ $opCode = 1 ]; then
+            $opCode = 4 # delayed on
+        elif [ $opCode = 2 ]; then
+            $opCode = 5 # delayed off
+        fi
+
         for (( i=$from; i<=$to; i++ ))
         do
-            echo "Conmuting $i"
             { printf "practica\ncos\n1\n$i\n$opCode\nyes\n\n\033\0334"; } | telnet 158.42.181.26
         done
     fi
 }
 
 while getopts ":h10an:f:t:" arg; do
-    case ${arg} in 
+    case ${arg} in                     
         h)
             usage
             exit 1
