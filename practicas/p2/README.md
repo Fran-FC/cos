@@ -89,7 +89,6 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 158.42.181.16            ether   08:62:66:48:E1:9E   C                     eth0
 ```
 
-# DNS
 A continuación se ejecutan una serie de comandos para las consultas a DNS. 
 
 - En este comando realiza un DNS *lookup*, en este caso, www.upv.es es el alias de ias.cc.upv.es, el cual es el dominio real, con IP 158.42.4.23. También muestra el dominio de correo de ias.cc.upv.es, el cual es mxv.cc.upv.es.
@@ -115,8 +114,7 @@ ias.cc.upv.es mail is handled by 7 mxv.cc.upv.es.
 8.8.8.8.in-addr.arpa	name = dns.google.
 ```
 
-
-El comando dig también realiza una operación DNS *lookup*, dice que el CNAME de www.upv.es es ias.cc.upv.es y que la dirección IP de esta es 158.42.4.23. Adicionalmente vemos el *time to live* de estas asociaciones, cuando este tiempo acaba el dns volverá a refrescar la tabla.
+- El comando dig también realiza una operación DNS *lookup*, dice que el CNAME de www.upv.es es ias.cc.upv.es y que la dirección IP de esta es 158.42.4.23. Adicionalmente vemos el *time to live* de estas asociaciones, cuando este tiempo acaba el dns volverá a refrescar la tabla.
 ```
 ~> dig www.upv.es
 
@@ -188,4 +186,25 @@ ias.cc.upv.es.		3600	IN	A	158.42.4.23
 ;; SERVER: 8.8.8.8#53(8.8.8.8)
 ;; WHEN: Mon Nov 08 15:48:42 CET 2021
 ;; MSG SIZE  rcvd: 73
+```
+
+- El fichero `/etc/passwd` muestra los usuarios del sistema y su configuración, como el nombre de usuario o el shell asociado.
+- El fichero `/etc/nsswitch.conf` es la configuración parra saber de donde obtener los nombres de servicio como alias o nombres de host entre otros.
+- `/etc/hosts` guarda algunas relaciones de IP y nombre de dominio. Por defecto solo estará la relación de locahost y 127.0.0.1.
+- `/etc/resolv.conf` es un archivo para información DNS, el campo search muestra los resultados de los DNS *lookup* recientes.
+```
+	nameserver 127.0.0.53
+	options edns0 trust-ad
+	search upv.es
+```
+- `/etc/dhcpd.conf` contiene configuración del sercvicio dhcpd.
+
+Ahora se analizan los scripts de ejecución de nivel 5.
+
+```zsh
+total 8
+drwxr-xr-x. 1 root root 50 Jul 23 17:32 .
+drwxr-xr-x. 1 root root 82 Nov  4 15:40 ..
+lrwxrwxrwx. 1 root root 17 Apr 23  2021 S00livesys -> ../init.d/livesys
+lrwxrwxrwx. 1 root root 22 Apr 23  2021 S99livesys-late -> ../init.d/livesys-late
 ```
