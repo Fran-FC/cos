@@ -92,90 +92,100 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 # DNS
 A continuación se ejecutan una serie de comandos para las consultas a DNS. 
 
-
+- En este comando realiza un DNS *lookup*, en este caso, www.upv.es es el alias de ias.cc.upv.es, el cual es el dominio real, con IP 158.42.4.23. También muestra el dominio de correo de ias.cc.upv.es, el cual es mxv.cc.upv.es.
 ```
 ~> host www.upv.es
+
 www.upv.es is an alias for ias.cc.upv.es.
 ias.cc.upv.es has address 158.42.4.23
 ias.cc.upv.es mail is handled by 7 mxv.cc.upv.es.
 ```
 
-- host 158.42.4.23
-	23.4.42.158.in-addr.arpa domain name pointer ias.cc.upv.es.
+- El siguiente comando resuelve el nombre de host de la direcion dada, haciendo un *reverse lookup* o rDNS. Lo que devuelve el dominio.
+```
+~> host 158.42.4.23
 
-- nslookup 8.8.8.8
-	Server:		158.42.248.88
-	Address:	158.42.248.88#53
+23.4.42.158.in-addr.arpa domain name pointer ias.cc.upv.es.
+```
 
-	Non-authoritative answer:
-	8.8.8.8.in-addr.arpa	name = dns.google.
+- El siguiente comando indica que el nombre del host con la dirección ip 8.8.8.8 es dns.google, el cual es un servidor dns.
+```
+~> nslookup 8.8.8.8
 
-	Authoritative answers can be found from:
-	8.8.in-addr.arpa	nameserver = ns1.level3.net.
-	8.8.in-addr.arpa	nameserver = ns2.level3.net.
-	ns2.level3.net	internet address = 209.244.0.2
-	ns1.level3.net	internet address = 209.244.0.1
+8.8.8.8.in-addr.arpa	name = dns.google.
+```
 
-- dig www.upv.es
-	; <<>> DiG 9.4.2-P1 <<>> www.upv.es
-	;; global options:  printcmd
-	;; Got answer:
-	;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12045
-	;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 4, ADDITIONAL: 6
 
-	;; QUESTION SECTION:
-	;www.upv.es.			IN	A
+El comando dig también realiza una operación DNS *lookup*, dice que el CNAME de www.upv.es es ias.cc.upv.es y que la dirección IP de esta es 158.42.4.23. Adicionalmente vemos el *time to live* de estas asociaciones, cuando este tiempo acaba el dns volverá a refrescar la tabla.
+```
+~> dig www.upv.es
 
-	;; ANSWER SECTION:
-	www.upv.es.		300	IN	CNAME	ias.cc.upv.es.
-	ias.cc.upv.es.		3600	IN	A	158.42.4.23
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 9597
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
 
-	;; AUTHORITY SECTION:
-	upv.es.			3600	IN	NS	sun.rediris.es.
-	upv.es.			3600	IN	NS	vega.cc.upv.es.
-	upv.es.			3600	IN	NS	chico.rediris.es.
-	upv.es.			3600	IN	NS	mirzam.ccc.upv.es.
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;www.upv.es.			IN	A
 
-	;; ADDITIONAL SECTION:
-	mirzam.ccc.upv.es.	3600	IN	A	158.42.1.5
-	vega.cc.upv.es.		3600	IN	A	158.42.4.1
-	sun.rediris.es.		24704	IN	A	199.184.182.1
-	chico.rediris.es.	24704	IN	A	162.219.54.2
-	sun.rediris.es.		3104	IN	AAAA	2620:171:808::1
-	chico.rediris.es.	3104	IN	AAAA	2620:10a:80eb::2
+;; ANSWER SECTION:
+www.upv.es.		300	IN	CNAME	ias.cc.upv.es.
+ias.cc.upv.es.		3600	IN	A	158.42.4.23
 
-	;; Query time: 0 msec
-	;; SERVER: 158.42.248.88#53(158.42.248.88)
-	;; WHEN: Mon Oct 25 15:20:20 2021
-	;; MSG SIZE  rcvd: 275
+;; Query time: 4 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Mon Nov 08 15:40:06 CET 2021
+;; MSG SIZE  rcvd: 76
+```
 
-- dig -x 158.42.4.23
-	; <<>> DiG 9.4.2-P1 <<>> -x 158.42.4.23
-	;; global options:  printcmd
-	;; Got answer:
-	;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63562
-	;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 3, ADDITIONAL: 4
 
-	;; QUESTION SECTION:
-	;23.4.42.158.in-addr.arpa.	IN	PTR
+- En esta ocasión realizamos un *reverse lookup*, insertando la IP con la opción -x. Lo que nos devolverá el nombre de dominio ias.cc.upv.es.
+```
+~> dig -x 158.42.4.23
 
-	;; ANSWER SECTION:
-	23.4.42.158.in-addr.arpa. 10800	IN	PTR	ias.cc.upv.es.
+; <<>> DiG 9.16.22-RH <<>> -x 158.42.4.23
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 6640
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
-	;; AUTHORITY SECTION:
-	42.158.in-addr.arpa.	10800	IN	NS	sun.rediris.es.
-	42.158.in-addr.arpa.	10800	IN	NS	vega.cc.upv.es.
-	42.158.in-addr.arpa.	10800	IN	NS	mirzam.cc.upv.es.
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;23.4.42.158.in-addr.arpa.	IN	PTR
 
-	;; ADDITIONAL SECTION:
-	mirzam.cc.upv.es.	3600	IN	A	158.42.1.5
-	vega.cc.upv.es.		3600	IN	A	158.42.4.1
-	sun.rediris.es.		24641	IN	A	199.184.182.1
-	sun.rediris.es.		3041	IN	AAAA	2620:171:808::1
+;; ANSWER SECTION:
+23.4.42.158.in-addr.arpa. 6025	IN	PTR	ias.cc.upv.es.
 
-	;; Query time: 0 msec
-	;; SERVER: 158.42.248.88#53(158.42.248.88)
-	;; WHEN: Mon Oct 25 15:21:23 2021
-	;; MSG SIZE  rcvd: 211
+;; Query time: 0 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Mon Nov 08 15:47:27 CET 2021
+;; MSG SIZE  rcvd: 80
+```
 
-- dig @8.8.8.8 .x 8.8.4.4
+- Para especificar el servidor dns al que preguntar, lo cual nos devuelve que el nombre de 8.8.4.4 es dns.google.
+```
+~> dig @8.8.8.8 -x 8.8.4.4
+
+; <<>> DiG 9.16.22-RH <<>> @8.8.8.8 -x 8.8.4.4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23791
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;4.4.8.8.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+4.4.8.8.in-addr.arpa.	20782	IN	PTR	dns.google.
+
+;; Query time: 11 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Mon Nov 08 15:48:42 CET 2021
+;; MSG SIZE  rcvd: 73
+```
