@@ -1,0 +1,13 @@
+#!/bin/sh
+
+init=$1
+fin=$2
+
+for i in `seq $init $fin`; do 
+	echo "==============="
+	echo cac$i 
+	echo "---------------"
+
+	ssh cac$i "$3"
+done 
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+multixterm "$1" cac2 cac3 cac4 cac6 cac7 cac8

@@ -189,22 +189,93 @@ ias.cc.upv.es.		3600	IN	A	158.42.4.23
 ```
 
 - El fichero `/etc/passwd` muestra los usuarios del sistema y su configuración, como el nombre de usuario o el shell asociado.
-- El fichero `/etc/nsswitch.conf` es la configuración parra saber de donde obtener los nombres de servicio como alias o nombres de host entre otros.
-- `/etc/hosts` guarda algunas relaciones de IP y nombre de dominio. Por defecto solo estará la relación de locahost y 127.0.0.1.
+- El fichero `/etc/nsswitch.conf` es la configuración para saber de donde obtener los nombres de servicio como alias o nombres de host entre otros.
+- `/etc/hosts` guarda algunas relaciones de IP y nombre de dominio. Por defecto solo estará la relación de locahost y 127.0.0.1, pero a demás se encuentran almacenadas las direcciones de los demás nodos del cluster y del apc y nas.
 - `/etc/resolv.conf` es un archivo para información DNS, el campo search muestra los resultados de los DNS *lookup* recientes.
 ```
-	nameserver 127.0.0.53
-	options edns0 trust-ad
-	search upv.es
+search upv.es
+nameserver 158.42.248.88
+nameserver 158.42.1.8
 ```
+
 - `/etc/dhcpd.conf` contiene configuración del sercvicio dhcpd.
 
 Ahora se analizan los scripts de ejecución de nivel 5.
 
-```zsh
-total 8
-drwxr-xr-x. 1 root root 50 Jul 23 17:32 .
-drwxr-xr-x. 1 root root 82 Nov  4 15:40 ..
-lrwxrwxrwx. 1 root root 17 Apr 23  2021 S00livesys -> ../init.d/livesys
-lrwxrwxrwx. 1 root root 22 Apr 23  2021 S99livesys-late -> ../init.d/livesys-late
+- En /etc/init.d/rc5.d/ se encuentran los enlances simbólicos a los servicios asociados al nivel 5 de ejecución.
+- Los servicios son:
 ```
+cos08@cac1:/etc/init.d> ls
+1                   boot.getclock     dhcpd             portmap         setserial
+aaeventd            boot.ipconfig     earlysyslog       postfix         single
+acpid               boot.klog         earlyxdm          powerd          skeleton
+alsasound           boot.ldconfig     energysaving      powerfail       skeleton.compat
+apache2             boot.loadmodules  fbset             powersaved      smartd
+atd                 boot.local        gpm               pxe             smbfs
+auditd              boot.localfs      haldaemon         random          spamd
+autofs              boot.localnet     halt              raw             splash
+autoyast            boot.lvm          halt.local        rc              splash_early
+avahi-daemon        boot.md           irq_balancer      rc0.d           sshd
+avahi-dnsconfd      boot.proc         java.binfmt_misc  rc1.d           stopblktrace
+bluetooth           boot.rootfsck     joystick          rc2.d           SuSEfirewall2_init
+boot                boot.sched        kbd               rc3.d           SuSEfirewall2_setup
+boot.apparmor       boot.scpm         mdadmd            rc4.d           syslog
+boot.blktrace       boot.swap         microcode.ctl     rc5.d           uuidd
+boot.cleanup        boot.sysctl       montar.sh         rc6.d           vboxdrv
+boot.clock          boot.udev         mysql             rcS.d           waitfornm
+boot.crypto         boot.udev_retry   network           README          xdm
+boot.crypto-early   condor            nfs               reboot          xfs
+boot.cycle          consolekit        nfsserver         resmgr          xinetd
+boot.d              cron              nscd              rpasswdd        ypbind
+boot.device-mapper  cups              ntp               rpmconfigcheck  yppasswdd
+boot.dmraid         dbus              openct            rsyncd          ypserv
+boot.fuse           denyhosts         pcscd             saslauthd       ypxfrd
+```
+  
+## SSH 
+
+Se ha creado una clave pública y se ha cargado en todos los nodos del cluster - Tras ejecutar una serie de comandos en cac2, se listan los procesos en ejecución de todos los nodos :
+
+```bash
+cos08@cac1:~> for i in 2 3 4 5 6 7 8; do echo cac$i ; ssh cac$i ps ; done
+cac2
+  PID TTY          TIME CMD
+31937 ?        00:00:00 sshd
+31938 ?        00:00:00 ps
+cac3
+  PID TTY          TIME CMD
+26288 ?        00:00:00 sshd
+26289 ?        00:00:00 ps
+cac4
+  PID TTY          TIME CMD
+ 6549 ?        00:00:00 sshd
+ 6550 ?        00:00:00 ps
+cac5
+  PID TTY          TIME CMD
+12451 ?        00:00:00 sshd
+12452 ?        00:00:00 ps
+cac6
+  PID TTY          TIME CMD
+22746 ?        00:00:00 sshd
+22747 ?        00:00:00 ps
+cac7
+  PID TTY          TIME CMD
+22568 ?        00:00:00 sshd
+22569 ?        00:00:00 ps
+cac8
+  PID TTY          TIME CMD
+22780 ?        00:00:00 sshd
+22781 ?        00:00:00 ps
+```
+- Al ejecutar `./psh ps` aux sin comillas, solo se envía el comando ps, ya que el script solo lee el primer argumento.
+
+- Si hicieramos `sudo ./psh poweroff` apagaríamos los nodos de la máquina.
+
+-  Para ejecutar un comando simultaneamente en todos los nodos se utiliza la herramienta `multixterm`.
+
+- Para el script de copiar un archivo a todos los nodos se utilizará el siguiente esquema: `scp $origen cac$i:$destino`
+
+- El comando `pdsh` ejecuta un comando en los nodos del cluster que se especifiquen y con la opción -R se selecciona que los comandos se ejecutan a través de ssh. 
+
+
+

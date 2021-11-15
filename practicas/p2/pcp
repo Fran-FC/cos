@@ -1,0 +1,13 @@
+#!/bin/sh
+
+origen=$1
+destino=$2
+
+for i in `seq 2 8`; do 
+	echo "==============="
+	echo cac$i 
+	echo "---------------"
+
+	scp $origen cac$i:$destino
+done 
+
