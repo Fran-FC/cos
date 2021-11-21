@@ -1,4 +1,6 @@
-# Información del hardware
+# Francesc Folch Company
+
+## Información del hardware
 
 Con el comando `cpufreq-info` obtenemos la información para la frecuencia de funcionamiento del procesador, y leyendo el fichero de información de la cpu con `cat /proc/cpuinfo` podemos averiguar el modelo del procesador y más detalles:
 
@@ -11,7 +13,7 @@ Para ver la información sobre la memoria RAM podemos ejecutar `htop` donde se v
 - RAM: 2010MB 
 - Swap Mem: 2055MB
 
-# Información del sistema operativo
+## Información del sistema operativo
 
 Para averiguar la distribución de linux instalada podemos ejecutar `cat /etc/*-release` y mostrará en este caso la versión de OpenSUSE, habrá abierto el fichero /etc/SuSE-release.
 
@@ -20,7 +22,7 @@ Para averiguar la distribución de linux instalada podemos ejecutar `cat /etc/*-
 Obtendremos la versión del kernel con el comando `uname -a`:
 - Linux kernel: 2.6.25.16-0.1-default 
 
-# Información de red
+## Información de red
 
 - Con el comando `/sbin/ifconfig` obtendremos la información de las interfaces de red, las de interés son:
 ```BashScript
