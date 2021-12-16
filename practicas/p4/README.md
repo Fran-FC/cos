@@ -18,3 +18,10 @@
 - Si quisiéramos quitar un volumen que contiene datos, con la orden `pvmove` moveriamos los datos a otros volúmenes.
 
 - Para crear una copia de seguridad se hará con la orden `lvcreate` con la opción `-s` (*snapshot*).
+
+### CONCLUSIONES
+
+Como hemos visto, linux nos proporciona herramientas muy potentes para administrar discos de almacenamiento de manera eficaz y productiva, permitiéndonos crear particiones, grupos de particiones y volúmenes lógicos. Esto es de gran utilidad para gestionar NAS de clusters con cientos de discos, y particionar estos discos para que sea transparente al sistema. 
+
+Por ejemplo, si queremos tener una partición para almacenar y montar los contenidos de una web, y otro grupo para gestionar la base de datos, con las particiones lógicas todo se haría mucho más sencillo, sobre todo el poder ampliar o reducir estas particiones lógicas a medida.
+
