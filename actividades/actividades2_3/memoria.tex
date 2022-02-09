@@ -1,0 +1,52 @@
+% !TeX spellcheck = es_ES
+\documentclass[]{article}
+
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc} 
+
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+
+%opening
+\title{Kubernetes - Configuración y optimización de sistemas de cómputo }
+\author{Francesc Folch Company}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Kubernetes (K8S)}
+
+\subsection{Linux cgroups y namespaces}
+
+Los cgroups (grupos de control)\cite{cgroups} son una funcionalidad del kernel de Linux que permite a los procesos ser organizados y separados mediante una jerarquía grupal. Esto habilita la compartimentalización de recursos, ya que se puede limitar el uso de CPU y memoria a unos procesos de un mismo cgroup.
+
+Los namespaces \cite{namespaces}  
+ 
+
+\begin{thebibliography}{10}
+\bibitem{cgroups}
+	cgroups(7). \textit{Linux Programmer's Manual}.
+	
+	<\url{https://www.man7.org/linux/man-pages/man7/cgroups.7.html}> 
+	\newblock [Consulta: 28 de enero de 2022]
+
+\bibitem{namespaces}
+namespaces(7). \textit{Linux Programmer's Manual}.
+
+<\url{https://man7.org/linux/man-pages/man7/namespaces.7.html}> 
+\newblock [Consulta: 28 de enero de 2022]
+
+
+\end{thebibliography}
+\end{document}
