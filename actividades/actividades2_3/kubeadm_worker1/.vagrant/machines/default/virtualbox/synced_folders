@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/home/fran/muiinf/1r_cuatri/cos/actividades/actividades2_3/kubeadm_worker1","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
